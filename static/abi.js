@@ -59,24 +59,6 @@ let abi = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "fio",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "snils",
-				"type": "string"
-			}
-		],
-		"name": "DeleteStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
 				"name": "new_fio",
 				"type": "string"
 			},
@@ -173,11 +155,6 @@ let abi = [
 						"internalType": "bool",
 						"name": "exists",
 						"type": "bool"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "diplomas_ind",
-						"type": "uint256[]"
 					}
 				],
 				"internalType": "struct Diplomas.Student",

@@ -13,7 +13,7 @@
 </body>
 <script>
     let web3 = new Web3('http://localhost:7545');
-    let contract_adr = '0x0560148A953916d033b965970BA9F25119845690';
+    let contract_adr = '0x0F8045378fF125300Ea6C6ac0566C8896AcB4425';
 
     let contract = new web3.eth.Contract(abi, contract_adr);
     let wallet = '';
@@ -26,5 +26,16 @@
     .catch(error=>{
         alert(error);
     })
+    ethereum.on('accountsChanged', (accounts)=>{
+        wallet = accounts[0];
+        console.log(wallet);
+    });
+    contract.methods.GetStudent('Ivanov Ivan', '123456').call()
+    .then((data)=>{
+        console.log(data);
+    })
+    .catch(error=>{
+        console.log(error);
+    });
 </script>
 </html>
