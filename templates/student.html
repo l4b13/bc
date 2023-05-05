@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block Content %}
+    <h1>Добавить студента</h1>
+    <form>
+        <label for="fio">ФИО</label>
+        <input type="text" name="fio" id="fio"/>
+        <label for="birthdate">Дата рождения</label>
+        <input type="text" name="birthdate" id="birthdate"/>
+        <label for="snils">Снилс</label>
+        <input type="text" name="snils" id="snils"/>
+        <input type="submit" id="submit">
+    </form>
+    <div id="result"></div>
+{% endblock %}
+{% block Script %}
+    let button = document.getElementById("submit");
+    button.addEventListener('click', (event)=>{
+        event.preventDefault();
+        let fio = document.getElementById("fio");
+        let birthdate = document.getElementById("birthdate");
+        let snils = document.getElementById("snils");
+        contract.methods.AddStudent(fio.value, birthdate.value, snils.value)
+        .send({
+            'from': wallet,
+            'gasLimit': 3000000,
+            'value': 0
+        })
+        .then((data)=>{
+            alert("Транзакция выполнена успешно");
+        })
+        .catch(error=>{
+            alert(error);
+        })
+    });
+{% endblock %}

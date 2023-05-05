@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="{{ url_for('static', filename = 'abi.js') }}"></script>
-</head>
-<body>
+{% extends "base.html" %}
+{% block Content %}
     <h1>Получить информацию о дипломе</h1>
     <form>
         <label for="name">ФИО</label>
@@ -18,34 +9,8 @@
         <input type="submit" id="submit">
     </form>
     <div id="result"></div>
-</body>
-<script>
-    let web3 = new Web3('http://localhost:7545');
-    let contract_adr = '0x0F8045378fF125300Ea6C6ac0566C8896AcB4425';
-
-    let contract = new web3.eth.Contract(abi, contract_adr);
-    let wallet = '';
-
-    ethereum.request({method: 'eth_requestAccounts'})
-    .then(accounts=>{
-        wallet = accounts[0];
-        console.log(wallet);
-    })
-    .catch(error=>{
-        alert(error);
-    })
-    ethereum.on('accountsChanged', (accounts)=>{
-        wallet = accounts[0];
-        console.log(wallet);
-    });
-<<<<<<< Updated upstream
-    contract.methods.GetStudent('Ivanov Ivan', '123456').call()
-    .then((data)=>{
-        console.log(data);
-    })
-    .catch(error=>{
-        console.log(error);
-=======
+{% endblock %}
+{% block Script %}
     let button = document.getElementById("submit");
     button.addEventListener('click', (event)=>{
         event.preventDefault();
@@ -55,8 +20,9 @@
         .call()
         .then((data)=>{
             let div = document.getElementById("result");
+            div.innerHTML = "";
             let ul = document.createElement("ul");
-            data.forEach(data=>{
+            data.forEach(element=>{
                 let li = document.createElement("li");
                 li.textContent = "Номер: " + element[0] +
                                 "\nФакультет: " + element[1] +
@@ -69,7 +35,5 @@
         .catch(error=>{
             alert(error);
         });
->>>>>>> Stashed changes
     });
-</script>
-</html>
+{% endblock %}

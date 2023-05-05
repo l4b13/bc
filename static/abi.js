@@ -59,29 +59,6 @@ let abi = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "new_fio",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "old_fio",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "snils",
-				"type": "string"
-			}
-		],
-		"name": "UpdateStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
 				"name": "fio",
 				"type": "string"
 			},
@@ -163,6 +140,29 @@ let abi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "new_fio",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "old_fio",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "snils",
+				"type": "string"
+			}
+		],
+		"name": "UpdateStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
