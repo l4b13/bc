@@ -18,10 +18,36 @@ contract Diplomas
         bool exists;
     }
 
+    address owner;
+
     mapping(string=>mapping(string=>Student)) private students; //fio=>snils=>Student
     mapping(string=>mapping(string=>Diplom[])) private diplomas; //fio=>snils=>Diplomas[]
+    mapping(address=>bool) experts;
 
-    function AddStudent(string memory fio, string memory birthday, string memory snils) public
+    constructor() public
+    {
+        owner = msg.sender;
+    }
+
+    modifier OnlyOwner
+    {
+        require(msg.sender == owner, "Only owner can run this function!");
+        _;
+    }
+
+    modifier OnlyExpert
+    {
+        require(experts[msg.sender], "Only expert can run this function");
+        _;
+    }
+
+    function AddExpert(address new_expert) public OnlyOwner
+    {
+        require(!experts[new_expert], "Expert already exists");
+        experts[new_expert] = true;
+    }
+
+    function AddStudent(string memory fio, string memory birthday, string memory snils) public OnlyExpert
     {
         if(!students[fio][snils].exists)
         {
@@ -31,7 +57,7 @@ contract Diplomas
         }
     }
 
-    function AddDiplom(string memory fio, string memory snils, string memory dep, string memory number, string memory issue_date) public
+    function AddDiplom(string memory fio, string memory snils, string memory dep, string memory number, string memory issue_date) public OnlyExpert
     {
         if(students[fio][snils].exists)
         {
@@ -45,7 +71,7 @@ contract Diplomas
         else revert('Student does not exist!');
     }
 
-    function GetStudent(string memory fio, string memory snils) view public returns(Student memory)
+    function GetStudent(string memory fio, string memory snils) view public OnlyExpert returns(Student memory)
     {
         if(students[fio][snils].exists) return students[fio][snils];
         else revert('Student does not exist!');
@@ -60,7 +86,7 @@ contract Diplomas
         revert('Student does not exist!');
     }
 
-    function UpdateStudent(string memory new_fio, string memory old_fio, string memory snils) public
+    function UpdateStudent(string memory new_fio, string memory old_fio, string memory snils) public OnlyExpert
     {
         if(students[old_fio][snils].exists)
         {
