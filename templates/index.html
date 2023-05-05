@@ -9,7 +9,15 @@
     <script src="{{ url_for('static', filename = 'abi.js') }}"></script>
 </head>
 <body>
-    <h1></h1>
+    <h1>Получить информацию о дипломе</h1>
+    <form>
+        <label for="name">ФИО</label>
+        <input type="text" name="fio" id="fio"/>
+        <label for="snils">Снилс</label>
+        <input type="text" name="snils" id="snils"/>
+        <input type="submit" id="submit">
+    </form>
+    <div id="result"></div>
 </body>
 <script>
     let web3 = new Web3('http://localhost:7545');
@@ -30,12 +38,38 @@
         wallet = accounts[0];
         console.log(wallet);
     });
+<<<<<<< Updated upstream
     contract.methods.GetStudent('Ivanov Ivan', '123456').call()
     .then((data)=>{
         console.log(data);
     })
     .catch(error=>{
         console.log(error);
+=======
+    let button = document.getElementById("submit");
+    button.addEventListener('click', (event)=>{
+        event.preventDefault();
+        let fio = document.getElementById("fio");
+        let snils = document.getElementById("snils");
+        contract.methods.GetDiploma(fio.value, snils.value)
+        .call()
+        .then((data)=>{
+            let div = document.getElementById("result");
+            let ul = document.createElement("ul");
+            data.forEach(data=>{
+                let li = document.createElement("li");
+                li.textContent = "Номер: " + element[0] +
+                                "\nФакультет: " + element[1] +
+                                "\nДата выдачи: " + element[2] +
+                                "\nСтатус: " + element[3];
+                ul.appendChild(li);
+            });
+            div.appendChild(ul);
+        })
+        .catch(error=>{
+            alert(error);
+        });
+>>>>>>> Stashed changes
     });
 </script>
 </html>
